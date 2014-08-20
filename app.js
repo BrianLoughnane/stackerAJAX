@@ -1,12 +1,4 @@
-$(document).ready( function() {
-	$('.unanswered-getter').submit( function(event){
-		// zero out results if previous search has run
-		$('.results').html('');
-		// get the value of the tags the user submitted
-		var tags = $(this).find("input[name='tags']").val();
-		getUnanswered(tags);
-	});
-});
+
 
 // this function takes the question object returned by StackOverflow 
 // and creates new result to be appended to DOM
@@ -61,17 +53,21 @@ var showError = function(error){
 var getUnanswered = function(tags) {
 	
 	// the parameters we need to pass in our request to StackOverflow's API
-	var request = {tagged: tags,
-								site: 'stackoverflow',
-								order: 'desc',
-								sort: 'creation'};
+	var request = {
+		tagged: tags,
+		site: 'stackoverflow',
+		order: 'desc',
+		sort: 'creation'
+		};
 	
 	var result = $.ajax({
 		url: "http://api.stackexchange.com/2.2/questions/unanswered",
 		data: request,
 		dataType: "jsonp",
 		type: "GET",
-		})
+		});
+
+	result
 	.done(function(result){
 		var searchResults = showSearchResults(request.tagged, result.items.length);
 
@@ -90,3 +86,86 @@ var getUnanswered = function(tags) {
 
 
 
+// function showAnswerer() {
+// 	var template = 
+// }
+
+
+function createTopAnswerers(displayName, linkURL, numAns, rep) {
+	var template = $(".topAnswerers").clone();
+
+	template.find(".name").text(displayName);
+	template.find(".link").text(linkURL);
+	template.find(".numAns").text(numAns);
+	template.find(".rep").text(rep);
+	template.css("display", "block");
+
+	$(".results").append(template);
+
+	console.log("fired function");
+}
+
+
+function inspire(tags) {
+
+	console.log("fired inspire with the " + tags + " parameter");
+
+	var request = {
+		tag: tags,
+		period: 'all-time',
+		site: 'stackoverflow',
+		order: 'desc',
+		sort: 'creation'
+		};
+
+	var result = $.ajax({
+		// url: "http://api.stackexchange.com/2.2/tags/javascript/top-answerers/all_time",
+		url: "http://api.stackexchange.com/2.2/tags/{tag}/top-answerers/{period}",
+		data: request,
+		dataType: "jsonp",
+		type: "GET"
+	});
+
+
+	result
+	.done(function(){
+		
+		for(var i = 0; i < result.items.length; i++) {
+
+			var displayName = result.items.user.displayName;
+			var link;
+			var numAns;
+			var rep;
+
+			createTopAnswerers(displayName, link, numAns, rep);
+
+		}
+
+	});
+	
+	
+
+
+}
+
+
+$(document).ready( function() {
+	$('.unanswered-getter').submit( function(event){
+		// zero out results if previous search has run
+		$('.results').html('');
+		// get the value of the tags the user submitted
+		var tags = $(this).find("input[name='tags']").val();
+		getUnanswered(tags);
+	});
+
+	$(".inspiration-getter").on("submit", function(){
+		console.log("hello");
+		$(".results").empty();
+
+		var tags = $(this).find("input[name='answerers']").val();
+		inspire(tags);
+		// inspire("jquery");
+
+	});
+
+});
