@@ -112,7 +112,7 @@ function inspire(tags) {
 
 	var request = {
 		tag: tags,
-		period: 'all-time',
+		period: 'all_time',
 		site: 'stackoverflow',
 		order: 'desc',
 		sort: 'creation'
@@ -120,22 +120,26 @@ function inspire(tags) {
 
 	var result = $.ajax({
 		// url: "http://api.stackexchange.com/2.2/tags/javascript/top-answerers/all_time",
-		url: "http://api.stackexchange.com/2.2/tags/{tag}/top-answerers/{period}",
+		url: "http://api.stackexchange.com/2.2/tags/"+ request.tag +"/top-answerers/" + request.period,
 		data: request,
 		dataType: "jsonp",
 		type: "GET"
 	});
-
-
+	// .done(function() {
+	// 	console.log(result.items.user.reputation);
+	// });
+	
 	// result
 	// .done(function(){
 		
 	// 	for(var i = 0; i < result.items.length; i++) {
 
-	// 		var displayName = result.items.user.displayName;
-	// 		var link;
-	// 		var numAns;
-	// 		var rep;
+	// 		console.log(result.items[i].user.reputation);
+
+	// 		var displayName = result.items[i].user.display_name;
+	// 		var link = result.items[i].user.link;
+	// 		var numAns = result.items[i].post_count;
+	// 		var rep = result.items[i].user.reputation;
 
 	// 		createTopAnswerers(displayName, link, numAns, rep);
 
