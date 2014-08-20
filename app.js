@@ -112,8 +112,8 @@ function inspire(tags) {
 
 	var request = {
 		tag: tags,
-		period: 'all_time',
-		site: 'stackoverflow.com',
+		period: 'all-time',
+		site: 'stackoverflow',
 		order: 'desc',
 		sort: 'creation'
 		};
@@ -126,12 +126,24 @@ function inspire(tags) {
 		type: "GET"
 	});
 
-	// var displayName = result.items.user.displayName;
-	// var link;
-	// var numAns;
-	// var rep;
 
-	// createTopAnswerers(displayName, link, numAns, rep);
+	result
+	.done(function(){
+		
+		for(var i = 0; i < result.items.length; i++) {
+
+			var displayName = result.items.user.displayName;
+			var link;
+			var numAns;
+			var rep;
+
+			createTopAnswerers(displayName, link, numAns, rep);
+
+		}
+
+	});
+	
+	
 
 
 }
