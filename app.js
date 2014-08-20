@@ -127,21 +127,21 @@ function inspire(tags) {
 	});
 
 
-	result
-	.done(function(){
+	// result
+	// .done(function(){
 		
-		for(var i = 0; i < result.items.length; i++) {
+	// 	for(var i = 0; i < result.items.length; i++) {
 
-			var displayName = result.items.user.displayName;
-			var link;
-			var numAns;
-			var rep;
+	// 		var displayName = result.items.user.displayName;
+	// 		var link;
+	// 		var numAns;
+	// 		var rep;
 
-			createTopAnswerers(displayName, link, numAns, rep);
+	// 		createTopAnswerers(displayName, link, numAns, rep);
 
-		}
+	// 	}
 
-	});
+	// });
 	
 	
 
