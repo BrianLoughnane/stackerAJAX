@@ -91,7 +91,7 @@ var getUnanswered = function(tags) {
 // }
 
 
-function createTopAnswerers(displayName, linkURL, numAns, rep) {
+function createTopAnswerers(displayName, linkURL, numAns, rep, imageLink) {
 	var template = $(".templates .topAnswerers").clone();
 
 	template.find(".name").text(displayName);
@@ -99,7 +99,10 @@ function createTopAnswerers(displayName, linkURL, numAns, rep) {
 	template.find(".link a").text(linkURL);
 	template.find(".numAns").text(numAns);
 	template.find(".rep").text(rep);
+	template.find(".pic").attr('src', imageLink);
+
 	template.css("display", "block");
+	// template.find(".pic").load("ajax/" + linkURL);
 
 	$(".results").append(template);
 
@@ -138,8 +141,14 @@ function inspire(tags) {
 			var link = result.responseJSON.items[i].user.link;
 			var numAns = result.responseJSON.items[i].post_count;
 			var rep = result.responseJSON.items[i].user.reputation;
+			var imageLink = result.responseJSON.items[i].user.profile_image;
 
-			createTopAnswerers(displayName, link, numAns, rep);
+			// var pic = $.ajax({
+			// 	url: link,
+			// 	type: LOAD,
+			// });
+
+			createTopAnswerers(displayName, link, numAns, rep, imageLink);
 
 			console.log(displayName, link, numAns, rep);
 			// console.log(i);
