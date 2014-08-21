@@ -47,8 +47,11 @@
 
 .topAnswerers {
 	border-bottom: 1px dotted black;
+	padding: 15px 0px;
 }
 
-.topAnswerers span {
-	display: block;
+.topAnswerers img {
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
 }

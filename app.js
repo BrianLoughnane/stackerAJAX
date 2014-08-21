@@ -91,18 +91,22 @@ var getUnanswered = function(tags) {
 // }
 
 
-function createTopAnswerers(displayName, linkURL, numAns, rep) {
-	var template = $(".topAnswerers").clone();
+function createTopAnswerers(displayName, linkURL, numAns, rep, imageLink) {
+	var template = $(".templates .topAnswerers").clone();
 
 	template.find(".name").text(displayName);
-	template.find(".link").text(linkURL);
+	template.find(".link a").attr('href', linkURL);
+	template.find(".link a").text(linkURL);
 	template.find(".numAns").text(numAns);
 	template.find(".rep").text(rep);
+	template.find(".pic").attr('src', imageLink);
+
 	template.css("display", "block");
+	// template.find(".pic").load("ajax/" + linkURL);
 
 	$(".results").append(template);
 
-	console.log("fired function");
+	console.log("fired createTopAnswers function");
 }
 
 
@@ -112,7 +116,7 @@ function inspire(tags) {
 
 	var request = {
 		tag: tags,
-		period: 'all-time',
+		period: 'all_time',
 		site: 'stackoverflow',
 		order: 'desc',
 		sort: 'creation'
@@ -120,36 +124,45 @@ function inspire(tags) {
 
 	var result = $.ajax({
 		// url: "http://api.stackexchange.com/2.2/tags/javascript/top-answerers/all_time",
-		url: "http://api.stackexchange.com/2.2/tags/{tag}/top-answerers/{period}",
+		url: "http://api.stackexchange.com/2.2/tags/"+ request.tag +"/top-answerers/" + request.period,
 		data: request,
-		dataType: "jsonp",
-		type: "GET"
-	});
-
-
-	result
+		dataType: "json",
+		type: "GET",
+	})
 	.done(function(){
-		
-		for(var i = 0; i < result.items.length; i++) {
 
-			var displayName = result.items.user.displayName;
-			var link;
-			var numAns;
-			var rep;
+		console.log(result.responseJSON.items[0]);
+		// createTopAnswerers(1,2,3,4);
 
-			createTopAnswerers(displayName, link, numAns, rep);
+
+		for(var i = 0; i < result.responseJSON.items.length; i++) {
+
+			var displayName = result.responseJSON.items[i].user.display_name;
+			var link = result.responseJSON.items[i].user.link;
+			var numAns = result.responseJSON.items[i].post_count;
+			var rep = result.responseJSON.items[i].user.reputation;
+			var imageLink = result.responseJSON.items[i].user.profile_image;
+
+			// var pic = $.ajax({
+			// 	url: link,
+			// 	type: LOAD,
+			// });
+
+			createTopAnswerers(displayName, link, numAns, rep, imageLink);
+
+			console.log(displayName, link, numAns, rep);
+			// console.log(i);
 
 		}
 
 	});
-	
-	
 
 
 }
 
 
 $(document).ready( function() {
+
 	$('.unanswered-getter').submit( function(event){
 		// zero out results if previous search has run
 		$('.results').html('');
@@ -164,7 +177,7 @@ $(document).ready( function() {
 
 		var tags = $(this).find("input[name='answerers']").val();
 		inspire(tags);
-		// inspire("jquery");
+		
 
 	});
 
