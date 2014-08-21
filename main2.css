@@ -38,6 +38,7 @@
 	border: 1px solid black;
 	padding: 5px;
 	margin: 0 auto 1em auto;
+	background: #def;
 }
 
 .error {
@@ -78,4 +79,8 @@ form, h3, .stack p {
 
 .inspiration-getter {
 	margin-bottom: 25px;
+}
+
+dt {
+	font-weight: bold;
 }

@@ -180,18 +180,20 @@ $(document).ready( function() {
 		var tags = $(this).find("input[name='answerers']").val();
 
 		// function tagCompile() {
-			for(var i=0; i< tags.length; i++) {
-				if(tags[i] === ' ') {
-					tags[i] = '-';
-				}
-			}
+			// for(var i=0; i< tags.length; i++) {
+			// 	if(tags[i] === ' ') {
+			// 		tags[i] = '-';
+			// 	}
+			// }
 
 		// 	return tags;
 		// }
 		
 
 		// tagCompile();
-		tags.replace(" ", "-");
+		// tags = tags.replace(" ", "-");
+		// tags = tags.replace(/ /g, "-");
+		tags = tags.split(' ').join('-');
 		inspire(tags);
 		
 
