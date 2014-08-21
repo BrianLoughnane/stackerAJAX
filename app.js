@@ -163,6 +163,8 @@ function inspire(tags) {
 
 $(document).ready( function() {
 
+	console.log("jq working");
+
 	$('.unanswered-getter').submit( function(event){
 		// zero out results if previous search has run
 		$('.results').html('');
@@ -176,6 +178,20 @@ $(document).ready( function() {
 		$(".results").empty();
 
 		var tags = $(this).find("input[name='answerers']").val();
+
+		// function tagCompile() {
+			for(var i=0; i< tags.length; i++) {
+				if(tags[i] === ' ') {
+					tags[i] = '-';
+				}
+			}
+
+		// 	return tags;
+		// }
+		
+
+		// tagCompile();
+		tags.replace(" ", "-");
 		inspire(tags);
 		
 

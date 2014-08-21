@@ -47,11 +47,35 @@
 
 .topAnswerers {
 	border-bottom: 1px dotted black;
-	padding: 15px 0px;
+	overflow: hidden;
+	background: #def;
+	margin: 5px 0px;
+	padding: 30px;
 }
 
 .topAnswerers img {
-	height: 50px;
-	width: 50px;
+	height: 80px;
 	border: 1px solid black;
+	float: right;
+}
+
+.topAnswerers div {
+	float: left;
+}
+
+.name {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.numAns, .rep {
+	font-style: italic;
+}
+
+form, h3, .stack p {
+	text-align: center;
+}
+
+.inspiration-getter {
+	margin-bottom: 25px;
 }
