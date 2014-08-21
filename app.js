@@ -128,6 +128,8 @@ function inspire(tags) {
 	.done(function(){
 
 		console.log(result.responseJSON.items[0]);
+		// createTopAnswerers(1,2,3,4);
+
 
 		for(var i = 0; i < result.responseJSON.items.length; i++) {
 
@@ -136,13 +138,9 @@ function inspire(tags) {
 			var numAns = result.responseJSON.items[i].post_count;
 			var rep = result.responseJSON.items[i].user.reputation;
 
-			// var displayName = 1;
-			// var link = 1;
-			// var numAns = 1;
-			// var rep = 1;
-
-
 			createTopAnswerers(displayName, link, numAns, rep);
+
+			console.log(i);
 
 		}
 
@@ -168,8 +166,7 @@ $(document).ready( function() {
 
 		var tags = $(this).find("input[name='answerers']").val();
 		inspire(tags);
-		createTopAnswerers(1,2,3,4);
-		// inspire("jquery");
+		
 
 	});
 

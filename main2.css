@@ -44,3 +44,8 @@
 	background-color: #F78181;
 	padding: 1em;
 }
+
+.topAnswerers {
+	border-bottom: 1px dotted black;
+}
+
