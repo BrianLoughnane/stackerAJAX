@@ -92,10 +92,11 @@ var getUnanswered = function(tags) {
 
 
 function createTopAnswerers(displayName, linkURL, numAns, rep) {
-	var template = $(".topAnswerers").clone();
+	var template = $(".templates .topAnswerers").clone();
 
 	template.find(".name").text(displayName);
-	template.find(".link").text(linkURL);
+	template.find(".link a").attr('href', linkURL);
+	template.find(".link a").text(linkURL);
 	template.find(".numAns").text(numAns);
 	template.find(".rep").text(rep);
 	template.css("display", "block");
@@ -140,7 +141,8 @@ function inspire(tags) {
 
 			createTopAnswerers(displayName, link, numAns, rep);
 
-			console.log(i);
+			console.log(displayName, link, numAns, rep);
+			// console.log(i);
 
 		}
 
