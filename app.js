@@ -179,13 +179,19 @@ $(document).ready( function() {
 
 		var tags = $(this).find("input[name='answerers']").val();
 
-		// function tagCompile() 
+		// function tagCompile() {
+			for(var i=0; i< tags.length; i++) {
+				if(tags[i] === ' ') {
+					tags[i] = '-';
+				}
+			}
+
 		// 	return tags;
 		// }
 		
 
 		// tagCompile();
-		tas
+		tags.replace(" ", "-");
 		inspire(tags);
 		
 
