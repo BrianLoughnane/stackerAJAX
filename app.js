@@ -102,7 +102,7 @@ function createTopAnswerers(displayName, linkURL, numAns, rep) {
 
 	$(".results").append(template);
 
-	console.log("fired function");
+	console.log("fired createTopAnswers function");
 }
 
 
@@ -122,38 +122,38 @@ function inspire(tags) {
 		// url: "http://api.stackexchange.com/2.2/tags/javascript/top-answerers/all_time",
 		url: "http://api.stackexchange.com/2.2/tags/"+ request.tag +"/top-answerers/" + request.period,
 		data: request,
-		dataType: "jsonp",
-		type: "GET"
+		dataType: "json",
+		type: "GET",
+	})
+	.done(function(){
+
+		console.log(result.responseJSON.items[0]);
+
+		for(var i = 0; i < result.responseJSON.items.length; i++) {
+
+			var displayName = result.responseJSON.items[i].user.display_name;
+			var link = result.responseJSON.items[i].user.link;
+			var numAns = result.responseJSON.items[i].post_count;
+			var rep = result.responseJSON.items[i].user.reputation;
+
+			// var displayName = 1;
+			// var link = 1;
+			// var numAns = 1;
+			// var rep = 1;
+
+
+			createTopAnswerers(displayName, link, numAns, rep);
+
+		}
+
 	});
-	// .done(function() {
-	// 	console.log(result.items.user.reputation);
-	// });
-	
-	// result
-	// .done(function(){
-		
-	// 	for(var i = 0; i < result.items.length; i++) {
-
-	// 		console.log(result.items[i].user.reputation);
-
-	// 		var displayName = result.items[i].user.display_name;
-	// 		var link = result.items[i].user.link;
-	// 		var numAns = result.items[i].post_count;
-	// 		var rep = result.items[i].user.reputation;
-
-	// 		createTopAnswerers(displayName, link, numAns, rep);
-
-	// 	}
-
-	// });
-	
-	
 
 
 }
 
 
 $(document).ready( function() {
+
 	$('.unanswered-getter').submit( function(event){
 		// zero out results if previous search has run
 		$('.results').html('');
@@ -168,6 +168,7 @@ $(document).ready( function() {
 
 		var tags = $(this).find("input[name='answerers']").val();
 		inspire(tags);
+		createTopAnswerers(1,2,3,4);
 		// inspire("jquery");
 
 	});
